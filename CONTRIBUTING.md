@@ -1,189 +1,74 @@
 # Contributing to EU AI Operator's Desk
 
-We welcome contributions from researchers, operators, hardware enthusiasts, and anyone building AI capability in Europe.
+We welcome contributions from researchers, operators, hardware engineers, and teams building AI capability in Europe.
 
 ## How to Contribute
 
-### Reporting Issues
-1. **Check existing issues** — avoid duplicates
-2. **Be specific** — include expected vs. actual behavior
-3. **Provide context** — OS, browser, Node version, error logs
+1. Check existing issues and pull requests.
+2. Create a focused branch from `master`.
+3. Make the smallest coherent change.
+4. Run `pnpm check` and `pnpm build`.
+5. Open a pull request with evidence of verification.
 
-### Submitting PRs
+## Quality rules
 
-1. **Fork** the repo
-2. **Create a branch**: `git checkout -b feature/your-idea`
-3. **Commit** with clear messages: `git commit -m "Add hardware configs for AM5 platform"`
-4. **Push**: `git push origin feature/your-idea`
-5. **Open a PR** with a description of what and why
+- TypeScript strict mode; avoid `any`.
+- React functional components and hooks.
+- Tailwind CSS 4.
+- Evidence-led data with source and confidence labels.
+- Never commit secrets or browser-visible provider credentials.
+- Never claim a deployment is live without deployment evidence.
+- Material external actions require the appropriate MindReply approval policy.
 
-### Code Standards
+## Contribution areas
 
-- **TypeScript**: strict mode, no `any`
-- **React**: functional components + hooks
-- **Styling**: Tailwind CSS 4, component-scoped `<style>` blocks
-- **Naming**: camelCase for variables, PascalCase for components
-- **Comments**: inline for logic, JSDoc for exports
+### Market Intelligence
 
-### Contribution Areas
+Add sourced regional analysis, regulatory intelligence, use cases and opportunity qualification. Label evidence `VERIFIED`, `CORROBORATED`, `DIRECTIONAL`, `UNVERIFIED` or `BLOCKED`.
 
-#### Market Intelligence
-- Regional AI adoption analysis (survey data, policy, regulatory insights)
-- Competitive landscaping (player mapping, market dynamics)
-- Use case analysis (SME challenges, public service integration, diaspora workflows)
-- Evidence sources (research papers, analyst reports, government data)
+### Hardware Guidance
 
-**How to contribute:**
-- Add regional analysis to `/strategy-data/`
-- Include sources with DOI, URLs, or publication details
-- Label confidence: Verified / Directional / Unverified
-- PR example: "Add 2025 EU AI Act compliance requirements"
+Add compatibility matrices, component data, build profiles, regional pricing/availability and measured benchmarks. Preserve source provenance.
 
-#### Hardware Guidance
-- Component data (CPU/GPU/motherboard compatibility matrices)
-- Pricing and availability tracking
-- Build profiles (optimized configs for specific workloads)
-- Retailer mappings and sourcing guides
-- Performance benchmarks (measured on typical EU platforms)
+### Translations
 
-**How to contribute:**
-- Add component specs to `/hardware-data/`
-- Include link/SKU and regional availability (DE, FR, BG, PL, etc.)
-- Build templates: `/hardware-builds/` (focus-desk, multi-agent, enterprise-lab)
-- PR example: "Add AM5 ecosystem configs and EU retailer routing"
+Add localized UI and documentation with terminology reviewed for the target market.
 
-#### Translations
-- Bulgarian, Polish, German, French, and others
-- UI strings, documentation, case studies
+### Case Studies
 
-**How to contribute:**
-- Add i18n strings to `/client/locales/`
-- Use keys like `atlas.pestel.title`
-- Include context comments for ambiguous strings
-- PR example: "Add Bulgarian localization (home, atlas, about pages)"
+Use measured outcomes: company/use case, workload, infrastructure, budget, timeline, results and evidence.
 
-#### Case Studies
-- Real deployment stories (company, use case, outcomes, learnings)
-- Performance reports (speed, cost, integration challenges)
-- Pilot results and measurement data
+### Ecosystem Partnerships
 
-**How to contribute:**
-- Add case study to `/docs/case-studies/`
-- Template: company, industry, scale, GPU/CPU config, budget, timeline, results
-- Include contact/attribution
-- PR example: "Case study: Polish SME AI adoption pilot"
+Add verified integrators, resellers, training providers and support networks with scope and source URLs.
 
-#### Ecosystem Partnerships
-- Integrator/reseller contacts and resources
-- Training program information
-- Regional support networks
-- Open APIs for third-party tools
-
-**How to contribute:**
-- Update `/docs/ecosystem/`
-- Include verified contacts, URLs, service scope
-- PR example: "Add INSAIT AI bootcamp and partner routes"
-
----
-
-## Development Setup
+## Development setup
 
 ```bash
-# Clone and install
-git clone https://github.com/eu-ai-operator/desk.git
-cd desk
+git clone https://github.com/angellllkr-eng/eu-ai-operator-desk.git
+cd eu-ai-operator-desk
 pnpm install
-
-# Run dev server (http://localhost:5173)
 pnpm dev
-
-# Type check
 pnpm check
-
-# Format code
-pnpm format
-
-# Build for production
 pnpm build
 ```
 
----
+The application exposes `/health` and `/api/operator/capabilities` when the Express server is running.
 
-## Project Structure
+## Architecture boundary
 
-```
-eu-ai-operator-desk/
-├── client/
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── Home.tsx              # Landing page
-│   │   │   ├── StrategicAtlas.tsx    # Market intelligence
-│   │   │   ├── HardwareBuilder.tsx   # Configurator
-│   │   │   └── About.tsx             # About + contribution
-│   │   ├── components/               # Shared UI
-│   │   ├── contexts/                 # Theme, state
-│   │   └── App.tsx                   # Main router
-│   └── index.html
-├── server/
-│   └── index.ts                      # Express backend
-├── shared/
-│   └── const.ts                      # Shared constants
-├── docs/
-│   ├── case-studies/                 # Deployment stories
-│   ├── ecosystem/                    # Partner data
-│   └── strategy/                     # Market analysis
-├── hardware-data/
-│   ├── components/                   # CPU/GPU/mobo specs
-│   └── builds/                       # Config templates
-└── package.json
-```
+The Desk is the European intelligence and qualification layer. MindReply / MRdash is the execution and control plane. Do not copy credentials, payment keys or private orchestration state into the public Desk.
 
----
+Robotics is safety-gated. MPP/x402 payment flows are policy-controlled and must not bypass approval or budget controls.
 
-## Commit Message Format
+## Commit format
 
-```
-<type>: <subject>
+Use `feat:`, `fix:`, `docs:`, `refactor:`, `test:` or `chore:` followed by a concise subject.
 
-<body>
+## Code review
 
-<footer>
-```
+Reviewers check clarity, source accuracy, security, tests, deployment evidence and architectural fit.
 
-**Types**: feat, fix, docs, style, refactor, test, chore
+## License
 
-**Examples:**
-- `feat: add AM5 motherboard compatibility matrix`
-- `docs: Bulgarian SME adoption case study`
-- `fix: hardware builder cost calculation`
-- `style: unify atlas and hardware UI spacing`
-
----
-
-## Code Review
-
-We'll review your PR for:
-- **Clarity**: Is the code easy to understand?
-- **Accuracy**: Is the data/analysis correct and sourced?
-- **Completeness**: Does it include tests, docs, examples?
-- **Fit**: Does it align with project goals?
-
-Feedback is collaborative — we're here to help!
-
----
-
-## Licensing
-
-By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).
-
----
-
-## Questions?
-
-- Open an issue (bug, feature request, question)
-- Email: hello@eu-ai-desk.com
-- Join discussions on GitHub
-
----
-
-**Thank you for building EU AI capability!** 🇪🇺
+MIT.
