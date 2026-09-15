@@ -1,0 +1,26 @@
+{
+  "name": "EU AI Operator's Desk",
+  "version": "1.1.0",
+  "role": "European AI qualification and deployment intelligence layer",
+  "execution_plane": "MindReply / MRdash",
+  "operating_loop": ["memory", "planner", "scheduler", "mcp-tools", "analytics", "memory"],
+  "public_endpoints": ["/health", "/api/operator/capabilities", "/llms.txt"],
+  "payment": {
+    "mpp": "controlled",
+    "x402": "compatible",
+    "production_settlement": false,
+    "test_network": "base-sepolia"
+  },
+  "regions": ["EU", "UK", "US"],
+  "robotics": {
+    "supported_as_adapter": true,
+    "autonomous_actuation": false,
+    "hardware_safety_interlock_required": true
+  },
+  "authority": {
+    "external_actions": "approval-gated",
+    "financial_actions": "approval-gated",
+    "physical_actions": "safety-gated",
+    "production_deployments": "approval-gated"
+  }
+}
