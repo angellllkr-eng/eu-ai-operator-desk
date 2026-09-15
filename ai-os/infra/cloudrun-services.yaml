@@ -1,0 +1,72 @@
+# How to revise: Owner = Cloud/platform contractor. Keep image names, IAM and env contracts synchronized.
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ai-os-auth-gateway
+spec:
+  template:
+    spec:
+      serviceAccountName: AI_OS_SERVICE_ACCOUNT
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/ai-os/auth-gateway:latest
+          ports: [{containerPort: 8080}]
+          env:
+            - name: OIDC_ISSUER
+              value: https://idp.example.invalid
+            - name: OIDC_CLIENT_ID
+              value: SECRET_MANAGER_REFERENCE
+            - name: OIDC_REDIRECT_URI
+              value: https://api.example.com/auth/callback
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ai-os-launcher
+spec:
+  template:
+    spec:
+      serviceAccountName: AI_OS_SERVICE_ACCOUNT
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/ai-os/launcher:latest
+          ports: [{containerPort: 8080}]
+          env:
+            - name: JWT_KEY_SECRET
+              value: SECRET_MANAGER_REFERENCE
+            - name: LAUNCH_BASE_URL
+              value: https://launcher.example.com
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ai-os-planner
+spec:
+  template:
+    spec:
+      serviceAccountName: AI_OS_SERVICE_ACCOUNT
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/ai-os/planner:latest
+          ports: [{containerPort: 8080}]
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ai-os-scheduler
+spec:
+  template:
+    spec:
+      serviceAccountName: AI_OS_SERVICE_ACCOUNT
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/ai-os/scheduler:latest
+          ports: [{containerPort: 8080}]
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ai-os-mcp
+spec:
+  template:
+    spec:
+      serviceAccountName: AI_OS_SERVICE_ACCOUNT
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/ai-os/mcp:latest
+          ports: [{containerPort: 8080}]
