@@ -1,0 +1,39 @@
+name: Deploy payment gateway
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["master"]
+    paths:
+      - "cloudflare/payments/**"
+      - ".github/workflows/cloudflare-payments.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cloudflare/payments
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: cloudflare/payments/package.json
+      - name: Install
+        run: npm install
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          MPP_SECRET_KEY: ${{ secrets.MPP_SECRET_KEY }}
+          PAYMENT_RECIPIENT: ${{ secrets.PAYMENT_RECIPIENT }}
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$MPP_SECRET_KEY"
+          test -n "$PAYMENT_RECIPIENT"
+          npx wrangler secret put MPP_SECRET_KEY <<< "$MPP_SECRET_KEY"
+          npx wrangler secret put PAYMENT_RECIPIENT <<< "$PAYMENT_RECIPIENT"
+          npx wrangler deploy
