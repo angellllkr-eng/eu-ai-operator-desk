@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
@@ -11,6 +12,7 @@ import {
   ShieldCheck,
   Sparkles,
   Workflow,
+  XCircle,
 } from "lucide-react";
 
 const useCases = [
@@ -55,8 +57,40 @@ const handoffs = [
   ["6", "Record", "Decision, receipt, outcome, and evidence return to the ledger"],
 ];
 
+type HealthState = {
+  status: "loading" | "online" | "offline";
+  service?: string;
+  version?: string;
+};
+
 export default function Home() {
   const [, navigate] = useLocation();
+  const [health, setHealth] = useState<HealthState>({ status: "loading" });
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/health", { headers: { Accept: "application/json" } })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`health:${response.status}`);
+        return (await response.json()) as { status?: string; service?: string; version?: string };
+      })
+      .then((data) => {
+        if (!active) return;
+        setHealth({ status: data.status === "ok" ? "online" : "offline", service: data.service, version: data.version });
+      })
+      .catch(() => {
+        if (!active) return;
+        setHealth({ status: "offline" });
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const runtimeLabel = health.status === "online" ? "Runtime connected" : health.status === "offline" ? "Static surface" : "Checking runtime";
+  const RuntimeIcon = health.status === "online" ? CheckCircle2 : XCircle;
 
   return (
     <div className="desk-shell">
@@ -90,6 +124,7 @@ export default function Home() {
         .signal-list { display:grid; gap:9px; margin-top:24px; }
         .signal-item { display:flex; gap:10px; align-items:flex-start; padding:10px 0; border-top:1px solid rgba(255,255,255,.1); }
         .signal-item svg { flex:0 0 auto; margin-top:2px; }
+        .status { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:8px 10px; border-radius:10px; background:rgba(255,255,255,.07); color:#d4dbe2; font-size:12px; font-weight:700; }
         .section { margin-top:26px; }
         .section-head { display:flex; justify-content:space-between; gap:20px; align-items:flex-end; margin-bottom:14px; }
         .section-head h2 { margin:0; font-size:27px; letter-spacing:-.03em; }
@@ -154,6 +189,7 @@ export default function Home() {
               <div className="panel-label">Operator model</div>
               <div className="signal">Research first.<br />Commit second.</div>
               <div className="signal-copy">The Desk is the qualification layer. MindReply can become the execution and control layer after the owner approves the move.</div>
+              <div className="status"><RuntimeIcon size={14} /> {runtimeLabel}{health.version ? ` · v${health.version}` : ""}</div>
             </div>
             <div className="signal-list">
               <div className="signal-item"><CheckCircle2 size={16} /><span>Evidence confidence stays explicit.</span></div>
@@ -164,50 +200,30 @@ export default function Home() {
         </section>
 
         <section className="section">
-          <div className="section-head">
-            <div>
-              <h2>What this site is for</h2>
-              <p>Six concrete jobs make the Desk useful immediately. More can sit behind the same evidence and handoff model later.</p>
-            </div>
-          </div>
+          <div className="section-head"><div><h2>What this site is for</h2><p>Six concrete jobs make the Desk useful immediately. More can sit behind the same evidence and handoff model later.</p></div></div>
           <div className="grid">
             {useCases.map(({ icon: Icon, title, copy }) => (
-              <article className="card" key={title}>
-                <div className="card-icon"><Icon size={19} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
+              <article className="card" key={title}><div className="card-icon"><Icon size={19} /></div><h3>{title}</h3><p>{copy}</p></article>
             ))}
           </div>
         </section>
 
         <section className="section">
-          <div className="section-head">
-            <div>
-              <h2>One operating path</h2>
-              <p>Keep the public research surface lightweight. Push execution, authentication, payments, automation, and audit deeper into the stack.</p>
-            </div>
-          </div>
+          <div className="section-head"><div><h2>One operating path</h2><p>Keep the public research surface lightweight. Push execution, authentication, payments, automation, and audit deeper into the stack.</p></div></div>
           <div className="flow">
-            {handoffs.map(([number, title, copy]) => (
-              <div className="flow-step" key={number}>
-                <span className="num">{number}</span>
-                <strong>{title}</strong>
-                <span>{copy}</span>
-              </div>
-            ))}
+            {handoffs.map(([number, title, copy]) => (<div className="flow-step" key={number}><span className="num">{number}</span><strong>{title}</strong><span>{copy}</span></div>))}
           </div>
         </section>
 
         <section className="section platform">
           <div className="platform-card">
             <h3><Layers3 size={18} /> Desk → execution layer</h3>
-            <p>The public site qualifies the opportunity. A future API contract can pass a structured decision into MindReply / MRdash for workflows, approvals, deployment, monitoring, and evidence receipts.</p>
-            <div className="platform-tags"><span className="tag">MindReply</span><span className="tag">MRdash</span><span className="tag">GitHub</span><span className="tag">Vercel / edge</span></div>
+            <p>The public site qualifies the opportunity. The live runtime now exposes health and capability contracts; the execution handoff remains governed by owner approval.</p>
+            <div className="platform-tags"><span className="tag">MindReply</span><span className="tag">MRdash</span><span className="tag">GitHub</span><span className="tag">Runtime API</span></div>
           </div>
           <div className="platform-card">
             <h3><Building2 size={18} /> Data → commercial layer</h3>
-            <p>Supabase/Postgres can become the system of record; Stripe can handle commercial transactions; reconciliation and exposure review can be connected later without embedding credentials into the public client.</p>
+            <p>Supabase/Postgres can remain the system of record; Stripe can handle commercial transactions; reconciliation and exposure review stay outside the public browser boundary.</p>
             <div className="platform-tags"><span className="tag">Supabase</span><span className="tag">Stripe</span><span className="tag">Links Connect</span><span className="tag">Soluvery</span></div>
           </div>
         </section>
