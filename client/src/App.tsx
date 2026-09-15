@@ -7,6 +7,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageRouterProvider } from "./contexts/LanguageRouterContext";
 import Home from "./pages/Home";
 import HardwareBuilder from "./pages/HardwareBuilder";
 import StrategicAtlas from "./pages/StrategicAtlas";
@@ -36,10 +37,12 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster richColors position="bottom-right" />
-          <Router />
-        </TooltipProvider>
+        <LanguageRouterProvider>
+          <TooltipProvider>
+            <Toaster richColors position="bottom-right" />
+            <Router />
+          </TooltipProvider>
+        </LanguageRouterProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
