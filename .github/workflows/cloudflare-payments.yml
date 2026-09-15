@@ -2,11 +2,6 @@ name: Deploy payment gateway
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["master"]
-    paths:
-      - "cloudflare/payments/**"
-      - ".github/workflows/cloudflare-payments.yml"
 
 jobs:
   deploy:
