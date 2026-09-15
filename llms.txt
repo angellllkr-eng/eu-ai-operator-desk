@@ -1,0 +1,43 @@
+# EU AI Operator’s Desk
+
+Canonical repository: https://github.com/angellllkr-eng/eu-ai-operator-desk
+
+## Purpose
+
+Evidence-led qualification and deployment guidance for European AI adopters.
+
+## Core surfaces
+
+- `/` — public qualification surface
+- `/strategy` — Strategic Atlas
+- `/hardware` — Private Compute Configurator
+- `/about` — mission and contribution model
+
+## Primary jobs
+
+1. AI opportunity qualification
+2. EU market and sector research
+3. AI Act readiness questions and evidence mapping
+4. Private compute design
+5. Commercial qualification
+6. Structured operator handoff
+
+## Operating model
+
+Discover → Qualify → Design → Approve → Execute → Record
+
+## Platform relationship
+
+The Desk is the research/qualification layer. MindReply/MRdash is the intended execution/control layer. Supabase/Postgres is the candidate operational system of record. Stripe is the candidate commercial layer. Links Connect and Soluvery are optional operational connectors. MPP/x402 is a later machine-payment layer behind owner policy and budget controls.
+
+## Evidence policy
+
+Every material claim should carry provenance and one of: VERIFIED, DIRECTIONAL, UNVERIFIED, BLOCKED.
+
+## Safety boundary
+
+The public Desk must not contain provider API secrets or autonomously trigger irreversible paid actions. External execution requires an explicit owner policy/approval path.
+
+## Current state
+
+Homepage and product positioning refreshed on branch `product-launch-2026-09`. Cross-platform integration is staged behind explicit contracts; account-level service connections are not claimed live until independently verified.
