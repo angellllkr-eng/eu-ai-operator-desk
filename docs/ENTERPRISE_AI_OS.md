@@ -189,7 +189,7 @@ Primary KPIs:
 
 ## 10. Machine payments
 
-MPP is the preferred machine-payment interface where supported; x402 remains the compatibility layer. A paid resource returns a 402 challenge, payment is fulfilled, the server verifies settlement, and the result carries a receipt. Cloudflare documents both protocols for agentic payments. citeturn0search1turn0search2
+MPP is the preferred machine-payment interface where supported; x402 remains the compatibility layer. A paid resource returns a 402 challenge, payment is fulfilled, the server verifies settlement, and the result carries a receipt.
 
 Production policy:
 
