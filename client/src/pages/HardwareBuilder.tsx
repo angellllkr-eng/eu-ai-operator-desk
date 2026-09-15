@@ -7,7 +7,9 @@ import { Zap, Cpu, HardDrive, Thermometer, Package, AlertCircle } from "lucide-r
 import PageLayout from "@/components/PageLayout";
 import Section from "@/components/Section";
 import CardGrid, { Card } from "@/components/CardGrid";
+import { AffiliateLink, SponsorSlot } from "@/components/Monetization";
 import { colors, spacing } from "@/lib/designSystem";
+import { affiliateComponentLinks } from "@shared/monetization";
 import { useState } from "react";
 
 export default function HardwareBuilder() {
@@ -62,10 +64,10 @@ export default function HardwareBuilder() {
       icon: "🔧",
       description: "Processor determines workload handling, multi-threaded performance",
       options: [
-        { name: "AMD Ryzen 7 7800X3D", tier: "Focused", perf: "8-core, great single-thread" },
-        { name: "Intel Core i9-14900K", tier: "Focused", perf: "24-core, strong all-around" },
-        { name: "AMD Threadripper Pro 5995WX", tier: "Parallel", perf: "64-core, workstation beast" },
-        { name: "Intel Xeon W7-2495X", tier: "Enterprise", perf: "60-core, ECC memory" },
+        { name: "AMD Ryzen 7 7800X3D", tier: "Focused", perf: "8-core, great single-thread", amazon: "https://amazon.com/s?k=AMD+Ryzen+7+7800X3D" },
+        { name: "Intel Core i9-14900K", tier: "Focused", perf: "24-core, strong all-around", amazon: "https://amazon.com/s?k=Intel+i9-14900K" },
+        { name: "AMD Threadripper Pro 5995WX", tier: "Parallel", perf: "64-core, workstation beast", amazon: "https://amazon.com/s?k=AMD+Threadripper+5995WX" },
+        { name: "Intel Xeon W7-2495X", tier: "Enterprise", perf: "60-core, ECC memory", amazon: "https://amazon.com/s?k=Intel+Xeon+W7" },
       ],
     },
     {
@@ -73,10 +75,10 @@ export default function HardwareBuilder() {
       icon: "⚡",
       description: "GPU is the critical resource: VRAM, memory bandwidth, thermal design",
       options: [
-        { name: "RTX 4070 Super (12GB)", tier: "Focused", perf: "Entry AI workloads" },
-        { name: "RTX 4090 (24GB)", tier: "Parallel", perf: "High-performance inference + training" },
-        { name: "RTX 5880 Ada (48GB)", tier: "Parallel", perf: "Double-precision, research" },
-        { name: "H100 (80GB HBM3)", tier: "Enterprise", perf: "Large-scale training" },
+        { name: "RTX 4070 Super (12GB)", tier: "Focused", perf: "Entry AI workloads", amazon: "https://amazon.com/s?k=RTX+4070+Super" },
+        { name: "RTX 4090 (24GB)", tier: "Parallel", perf: "High-performance inference + training", amazon: "https://amazon.com/s?k=RTX+4090" },
+        { name: "RTX 5880 Ada (48GB)", tier: "Parallel", perf: "Double-precision, research", amazon: "https://amazon.com/s?k=RTX+5880" },
+        { name: "H100 (80GB HBM3)", tier: "Enterprise", perf: "Large-scale training", amazon: "https://amazon.com/s?k=H100+GPU" },
       ],
     },
     {
@@ -316,6 +318,15 @@ export default function HardwareBuilder() {
             </div>
           ))}
         </div>
+      </Section>
+
+      {/* Sponsor Slot - Featured Partner */}
+      <Section
+        title="Featured Partner"
+        description="Trusted hardware and software partners for EU AI deployment"
+        mode="hardware"
+      >
+        <SponsorSlot position="featured" />
       </Section>
 
       {/* CTA */}
