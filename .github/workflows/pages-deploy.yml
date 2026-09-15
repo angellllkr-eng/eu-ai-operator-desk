@@ -26,15 +26,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "pnpm"
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Verify package manager
+        run: pnpm --version
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Type-check
+        run: pnpm run check
 
       - name: Build client bundle for Pages
-        run: npx vite build
+        run: pnpm exec vite build
+
+      - name: Validate Pages artifact
+        run: test -s dist/public/index.html
 
       - name: Add SPA fallback
         run: cp dist/public/index.html dist/public/404.html
+
+      - name: Add GitHub Pages marker
+        run: touch dist/public/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
