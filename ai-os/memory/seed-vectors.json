@@ -1,0 +1,16 @@
+{
+  "_how_to_revise": "Owner = Memory/platform contractor. Replace deterministic unit vectors with model-generated embeddings before production.",
+  "collection": "enterprise_memory",
+  "vectors": [
+    {"id":"seed-01","values":[1,0,0,0,0,0,0,0,0,0],"metadata":{"type":"founder-preference","region":"eu"}},
+    {"id":"seed-02","values":[0,1,0,0,0,0,0,0,0,0],"metadata":{"type":"security-policy","region":"eu"}},
+    {"id":"seed-03","values":[0,0,1,0,0,0,0,0,0,0],"metadata":{"type":"architecture","region":"eu"}},
+    {"id":"seed-04","values":[0,0,0,1,0,0,0,0,0,0],"metadata":{"type":"compliance","region":"uk"}},
+    {"id":"seed-05","values":[0,0,0,0,1,0,0,0,0,0],"metadata":{"type":"operations","region":"eu"}},
+    {"id":"seed-06","values":[0,0,0,0,0,1,0,0,0,0],"metadata":{"type":"qa","region":"eu"}},
+    {"id":"seed-07","values":[0,0,0,0,0,0,1,0,0,0],"metadata":{"type":"robotics","region":"eu"}},
+    {"id":"seed-08","values":[0,0,0,0,0,0,0,1,0,0],"metadata":{"type":"analytics","region":"eu"}},
+    {"id":"seed-09","values":[0,0,0,0,0,0,0,0,1,0],"metadata":{"type":"regional-routing","region":"eu"}},
+    {"id":"seed-10","values":[0,0,0,0,0,0,0,0,0,1],"metadata":{"type":"audit","region":"eu"}}
+  ]
+}

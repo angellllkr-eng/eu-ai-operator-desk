@@ -1,0 +1,27 @@
+name: ai-os-ci
+on: [push, pull_request]
+
+# How to revise: Owner = Platform contractor. Keep secret scanning and syntax checks mandatory.
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Syntax checks
+        run: |
+          node --check ai-os/services/auth-gateway/index.js
+          node --check ai-os/services/launcher/index.js
+      - name: Secret scan
+        run: |
+          if grep -RInE '(sk_live_|AKIA[0-9A-Z]{16}|BEGIN (RSA|OPENSSH) PRIVATE KEY|ghp_[A-Za-z0-9]+)' --exclude-dir=.git ai-os; then exit 1; fi
+      - name: Required artifacts
+        run: |
+          test -f ai-os/README.md
+          test -f ai-os/infra/cloudrun-services.yaml
+          test -f ai-os/infra/api-gateway-config.yaml
+          test -f ai-os/memory/vector-schema.json
+          test -f ai-os/memory/seed-vectors.json
+          test -f ai-os/robotics/proto/robot_control.proto
+          test -f ai-os/docs/deployment-checklist.md

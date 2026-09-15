@@ -1,0 +1,15 @@
+syntax = "proto3";
+package ai_os.robotics.v1;
+
+// How to revise: Owner = Robotics safety contractor. Changes require E2E emergency-stop validation.
+message CommandRequest { string robot_id = 1; string command = 2; string plan_id = 3; string actor = 4; string region = 5; }
+message CommandResponse { bool accepted = 1; string command_id = 2; string status = 3; string reason = 4; }
+message EmergencyStopRequest { string scope = 1; string actor = 2; string plan_id = 3; }
+message EmergencyStopResponse { bool stopped = 1; string status = 2; }
+message TelemetryRequest { string robot_id = 1; string region = 2; }
+message TelemetryEvent { string robot_id = 1; int64 timestamp_ms = 2; string state = 3; double latitude = 4; double longitude = 5; double battery_pct = 6; string safety_status = 7; }
+service RobotControl {
+  rpc ExecuteCommand(CommandRequest) returns (CommandResponse);
+  rpc EmergencyStop(EmergencyStopRequest) returns (EmergencyStopResponse);
+  rpc TelemetryStream(TelemetryRequest) returns (stream TelemetryEvent);
+}

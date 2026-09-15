@@ -1,0 +1,16 @@
+{
+  "_how_to_revise": "Owner = Memory/platform contractor. Keep embedding dimension and metadata synchronized with the selected vector database.",
+  "collection": "enterprise_memory",
+  "distance": "cosine",
+  "dimension": 1536,
+  "metadata": {
+    "tenant_id": "string",
+    "region": "string",
+    "source": "string",
+    "type": "string",
+    "sensitivity": "public|internal|confidential|restricted",
+    "created_at": "RFC3339",
+    "plan_id": "string",
+    "retention_class": "string"
+  }
+}
