@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  # Frontend dev server
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client/src:/app/client/src
+      - ./client/public:/app/client/public
+    environment:
+      - VITE_API_URL=http://localhost:3000
+      - NODE_ENV=development
+    command: npm run dev --prefix client
+    networks:
+      - eu-ai-net
+
+  # Backend API server
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app/server
+      - ./shared:/app/shared
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    command: npm run dev --prefix server
+    networks:
+      - eu-ai-net
+
+  # Production build validator (optional)
+  build-check:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eu-ai-operator-desk:latest
+    profiles:
+      - production
+
+networks:
+  eu-ai-net:
+    driver: bridge
