@@ -22,22 +22,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.4.1
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: npm install --legacy-peer-deps
 
-      - name: Build
-        run: pnpm build
+      - name: Build client bundle for Pages
+        run: npx vite build
+
+      - name: Add SPA fallback
+        run: cp dist/public/index.html dist/public/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
