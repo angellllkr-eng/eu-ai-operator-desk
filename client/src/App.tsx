@@ -1,6 +1,5 @@
 /**
- * EU AI Operator's Desk — Unified platform for European AI adoption
- * Dual-mode: Strategic Market Intelligence + Hardware Configuration
+ * Updated App Router - Add new monetization pages
  */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,9 @@ import Home from "./pages/Home";
 import HardwareBuilder from "./pages/HardwareBuilder";
 import StrategicAtlas from "./pages/StrategicAtlas";
 import About from "./pages/About";
+import SponsorOnboarding from "./components/SponsorOnboarding";
+import AffiliateSignup from "./components/AffiliateSignup";
+import AdminDashboard from "./components/AdminDashboard";
 
 function Router() {
   return (
@@ -20,6 +22,9 @@ function Router() {
       <Route path={"/strategy"} component={StrategicAtlas} />
       <Route path={"/hardware"} component={HardwareBuilder} />
       <Route path={"/about"} component={About} />
+      <Route path={"/become-sponsor"} component={SponsorOnboarding} />
+      <Route path={"/affiliate"} component={AffiliateSignup} />
+      <Route path={"/admin/dashboard"} component={AdminDashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -27,12 +32,6 @@ function Router() {
   );
 }
 
-/**
- * Theme: Unified design system
- * - Editorial Intelligence Atlas (warm paper, saffron, deep ink) for strategy
- * - Quiet Command Deck (porcelain, Signal Cobalt, warm graphite) for hardware
- * - Merged aesthetic: accessible, evidence-driven, EU-focused
- */
 function App() {
   return (
     <ErrorBoundary>
