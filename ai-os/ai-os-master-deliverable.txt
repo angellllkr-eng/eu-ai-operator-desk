@@ -1,0 +1,68 @@
+ENTERPRISE AI OS — FOUNDER MASTER DELIVERABLE
+Status: READY FOR CONTRACTOR BUILD / PRODUCTION UNVERIFIED
+
+1. FOUNDER BRIEF
+Enterprise AI OS is the private execution layer between founder intent and governed enterprise action. Reality -> Authority -> Planning -> Execution -> Evidence -> Operation. Founder authority remains highest; automation cannot silently expand authority. OIDC+PKCE, secure sessions, short-lived RS256 launch tokens, hard compliance gates, audit events and robotics emergency-stop form the safety boundary.
+
+2. SYSTEM MAP
+Client/Sky-compatible launcher -> API Gateway -> Auth Gateway / Launcher / Orchestrator -> Planner -> Scheduler / Execution / MCP / Memory / Analytics -> Evidence -> Cloud Run + IAM + Monitoring -> Robotics ROS2/gRPC safety boundary. Agents: Orchestrator, Planner, Execution, Memory, Analytics, Optimization, MCP Tools, Robotics Integration, Multi-Region, Founder Presence.
+
+3. SECURITY
+Treat redirect_uri, state, nonce, product and returnURL as untrusted. Exact HTTPS allowlists only. Verify ID-token signature, issuer, audience, expiry and nonce against JWKS. Use HttpOnly/Secure/SameSite=Strict session cookies. Launcher JWT uses RS256, kid and <=120 second TTL. Store keys/secrets only in Secret Manager/GitHub Secrets. Add HMAC client-payload integrity, origin/referrer allowlists, rate limits and anomaly detection before production.
+
+4. ROBOTICS
+RobotControl defines ExecuteCommand, EmergencyStop and TelemetryStream. POST /orchestrator/command accepts action=emergency_stop and scope=region|all. Emergency stop must halt launches, notify operations and remain independent of ordinary optimization.
+
+5. COMPLIANCE
+Server-side age verification, geo eligibility, KYC/AML hooks, self-exclusion, deposit limits and session timeouts. UK legal/regulatory review is a production gate. GDPR requires minimisation, retention, deletion and data-subject processes. Data residency is region-aware.
+
+6. OBSERVABILITY
+Every material action emits {actor, action, timestamp, plan_id}. Alert: launch.failed >5/min; auth.failure >10/min; robot.emergency_stop immediately; token.signature.failure >5/min; compliance.denied anomaly.
+
+7. ACCEPTANCE TESTS
+Mock IdP: redirect -> callback -> PKCE/state/nonce -> JWKS validation -> secure session. Launcher: session required -> compliance pass -> RS256 JWT with sub/game_id/session_id/iat/exp/region/kid and <=120s TTL -> HTTPS launch_url. Emergency: region and all stop E2E. Audit: every action trace. Cloud: validate YAML, deploy dev, verify IAM and Secret Manager. iPhone: iPhone 17 Pro responsive/OIDC; 17 Pro Max native deep link + iframe behavior.
+
+8. TIMEBOX
+T+0 decomposition; T+10 founder profile; T+20 SSO/launcher; T+30 Cloud Run/API/memory; T+40 robotics; T+50 monitoring/compliance/smoke; T+55 founder brief; T+60 commit/PR/mobile handoff.
+
+9. MOBILE PUBLISH
+Safari -> GitHub -> private repo -> create folders/files from ai-os/ paths -> commit -> create dev branch -> Actions -> add Secrets only in Settings. Never paste PATs/private keys/webhooks into files, issues or chat. For bulk creation use contractor shell script below.
+
+10. CONTRACTOR COMMANDS
+Initial commit: feat(ai-os): establish enterprise control-plane foundation
+PR title: feat: establish Enterprise AI OS founder control plane
+Follow-ups: feat(auth): add production OIDC PKCE and JWKS validation; feat(launcher): add policy-gated signed launch tokens; feat(robotics): add emergency-stop integration and telemetry; feat(observability): add audit traces and operational alerts; chore(security): move runtime credentials to Secret Manager.
+
+GH CLI (after repo exists):
+git init && git branch -M main && git add . && git commit -m "feat(ai-os): establish enterprise control-plane foundation" && git remote add origin https://github.com/angellllkr-eng/ai-os.git && git push -u origin main
+
+PAT: use Git credential manager; never put the PAT in shell history. Then git push -u origin main and git checkout -b dev && git push -u origin dev.
+
+11. HANDOFF EMAIL
+Subject: Enterprise AI OS — founder-grade scaffold ready for implementation
+Team,
+The Enterprise AI OS scaffold is ready. Priority: OIDC+PKCE/JWKS, secure sessions, policy-gated RS256 launcher, Cloud Run/IAM, memory/audit, robotics emergency stop, UK compliance, iPhone QA. No secrets in Git; use GitHub Secrets + Secret Manager. Acceptance requires mock SSO, valid launcher signing, server-side compliance, E2E emergency stop, actor/action/timestamp/plan_id traces and CI/deployment evidence.
+Regards,
+A.K.
+
+12. SLACK
+Enterprise AI OS scaffold is ready. Priority: OIDC+PKCE/JWKS -> secure sessions -> policy-gated RS256 launcher -> Cloud Run/IAM -> memory/audit -> robotics emergency stop -> UK compliance -> iPhone QA. No secrets in Git. Production is not VERIFIED until E2E evidence exists.
+
+13. CANONICAL FILES
+README.md
+infra/cloudrun-services.yaml
+infra/api-gateway-config.yaml
+memory/vector-schema.json
+memory/seed-vectors.json
+robotics/proto/robot_control.proto
+services/auth-gateway/index.js
+services/launcher/index.js
+docs/deployment-checklist.md
+docs/founder-brief.md
+.github/workflows/ci.yaml
+ai-os-master-deliverable.txt
+
+Each implementation file includes a how-to-revise owner note. The detailed canonical content lives in the corresponding repository files; this document is the founder handoff/index.
+
+FINAL GATE
+This is a scaffold committed to an existing owner-controlled repository because the connected GitHub tool cannot create a brand-new repository. The branch is isolated and suitable for PR review. No external Sky system, credentials or page instructions were executed.
