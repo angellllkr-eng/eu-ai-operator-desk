@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0",
+  "defaultRegion": "eu-bg",
+  "regions": {
+    "eu-bg": {
+      "deploymentRegion": "europe-west1",
+      "dataResidency": "EU",
+      "languages": ["bg", "en"],
+      "currency": "EUR",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    },
+    "eu-de": {
+      "deploymentRegion": "europe-west3",
+      "dataResidency": "EU",
+      "languages": ["de", "en"],
+      "currency": "EUR",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    },
+    "eu-fr": {
+      "deploymentRegion": "europe-west9",
+      "dataResidency": "EU",
+      "languages": ["fr", "en"],
+      "currency": "EUR",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    },
+    "uk-lon": {
+      "deploymentRegion": "europe-west2",
+      "dataResidency": "UK",
+      "languages": ["en"],
+      "currency": "GBP",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    },
+    "us-east": {
+      "deploymentRegion": "us-east1",
+      "dataResidency": "US",
+      "languages": ["en"],
+      "currency": "USD",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    },
+    "ap-sg": {
+      "deploymentRegion": "asia-southeast1",
+      "dataResidency": "SG",
+      "languages": ["en"],
+      "currency": "SGD",
+      "defaultApprovalMode": "approval_required",
+      "productionPayments": false,
+      "roboticsRemoteExecution": false,
+      "maxAutonomousSpendEur": 0
+    }
+  },
+  "globalRules": {
+    "privateMemoryMustRemainInAuthorizedResidency": true,
+    "regulatedDataCannotCrossRegionWithoutPolicy": true,
+    "productionPurchaseRequiresApproval": true,
+    "recurringMembershipRequiresApproval": true,
+    "roboticsEmergencyStopOverridesAll": true
+  }
+}
