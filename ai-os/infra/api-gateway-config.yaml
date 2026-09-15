@@ -1,0 +1,24 @@
+# How to revise: Owner = Cloud/platform contractor. Every new route needs auth, policy, rate-limit, audit and rollback review.
+routes:
+  - path: /auth/*
+    method: ANY
+    service: ai-os-auth-gateway
+    auth: public-entry-oidc
+  - path: /launcher/request
+    method: POST
+    service: ai-os-launcher
+    auth: session-required
+    rate_limit: 60/minute
+  - path: /orchestrator/command
+    method: POST
+    service: ai-os-planner
+    auth: founder-or-ops
+    rate_limit: 30/minute
+  - path: /health
+    method: GET
+    service: ai-os-auth-gateway
+    auth: none
+  - path: /telemetry/*
+    method: ANY
+    service: ai-os-mcp
+    auth: service-to-service
