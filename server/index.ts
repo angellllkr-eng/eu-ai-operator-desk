@@ -6,9 +6,52 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const capabilities = {
+  service: "eu-ai-operator-desk",
+  version: "1.1.0",
+  status: "ready",
+  public_surface: ["health", "capabilities", "llms.txt"],
+  control_plane: "MindReply / MRdash",
+  modules: [
+    "orchestrator",
+    "memory",
+    "planner",
+    "scheduler",
+    "analytics",
+    "mcp-tools",
+    "shopping-memberships",
+    "robotics",
+    "multi-region",
+    "founder-presence",
+  ],
+  payment_protocols: {
+    mpp: "planned-controlled",
+    x402: "compatible-controlled",
+    production_settlement: "not_activated",
+  },
+  regions: ["EU", "UK", "US"],
+  execution_policy: "approval-gated",
+};
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
+
+  app.disable("x-powered-by");
+  app.use(express.json({ limit: "256kb" }));
+
+  app.get("/health", (_req, res) => {
+    res.status(200).json({
+      status: "ok",
+      service: capabilities.service,
+      version: capabilities.version,
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  app.get("/api/operator/capabilities", (_req, res) => {
+    res.status(200).json(capabilities);
+  });
 
   // Serve static files from dist/public in production
   const staticPath =
@@ -26,8 +69,11 @@ async function startServer() {
   const port = process.env.PORT || 3000;
 
   server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+    console.log(`EU AI Operator's Desk running on port ${port}`);
   });
 }
 
-startServer().catch(console.error);
+startServer().catch((error) => {
+  console.error("Failed to start EU AI Operator's Desk", error);
+  process.exit(1);
+});
