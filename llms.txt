@@ -28,7 +28,11 @@ Discover → Qualify → Design → Approve → Execute → Record
 
 ## Platform relationship
 
-The Desk is the research/qualification layer. MindReply/MRdash is the intended execution/control layer. Supabase/Postgres is the candidate operational system of record. Stripe is the candidate commercial layer. Links Connect and Soluvery are optional operational connectors. MPP/x402 is a later machine-payment layer behind owner policy and budget controls.
+The Desk is the research/qualification layer. MindReply/MRdash is the intended execution/control layer. Supabase/Postgres is the candidate operational system of record. Stripe is the candidate commercial layer. Links Connect and Soluvery are optional operational connectors.
+
+## Machine payments
+
+MPP is the preferred machine-payment interface; x402 is supported for compatibility. Paid resources are exposed behind HTTP 402 challenges and are intended to remain behind owner policy, budgets, verification, receipts, and audit logging. Test-stage endpoints are implemented in `cloudflare/payments/` and target Base Sepolia until explicitly promoted.
 
 ## Evidence policy
 
@@ -40,4 +44,4 @@ The public Desk must not contain provider API secrets or autonomously trigger ir
 
 ## Current state
 
-Homepage and product positioning refreshed on branch `product-launch-2026-09`. Cross-platform integration is staged behind explicit contracts; account-level service connections are not claimed live until independently verified.
+Product launch changes are merged to `master`. GitHub Pages has a canonical deployment workflow targeting `master` and the actual Vite output directory `dist/public`. Cloudflare MPP/x402 code and a guarded deployment workflow are present, but account-level deployment and production payment settlement remain UNVERIFIED until the required Cloudflare secrets and recipient are independently verified.
