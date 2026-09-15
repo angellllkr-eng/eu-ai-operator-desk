@@ -1,0 +1,102 @@
+AI-OS MASTER DELIVERABLE — CANONICALIZED FOR EU AI OPERATOR'S DESK
+
+Status: PRODUCTION CONTRACT / EXTERNAL INFRASTRUCTURE GATED
+Repository: angellllkr-eng/eu-ai-operator-desk
+Default branch: master
+Execution plane: MindReply / MRdash
+
+Purpose
+This file preserves the founder-grade Enterprise AI OS specification as the canonical implementation contract for the Desk. The Desk remains the European intelligence and qualification surface; MindReply/MRdash remains the private execution/control plane.
+
+Core loop
+Memory -> Planner -> Scheduler -> MCP Tools -> Execution -> Analytics -> Memory
+
+System modules
+- Orchestrator
+- Planner
+- Execution
+- Memory / vector memory
+- Scheduler
+- Analytics
+- Optimization
+- MCP Tools
+- Shopping / memberships
+- Robotics adapter
+- Multi-region routing: EU / UK / US
+- Founder presence / approval control
+
+Authority model
+- External purchases, financial settlement, irreversible production changes, credential rotation and physical actuation are approval-gated.
+- Secrets never live in browser code, Git, prompts or logs.
+- Every consequential action requires an auditable actor, scope, policy decision, correlation/idempotency key and evidence record.
+- Robotics execution requires an independent physical safety envelope and emergency-stop path; AI cannot bypass hardware interlocks.
+
+Public runtime contract
+GET /health
+GET /api/operator/capabilities
+GET /llms.txt
+
+Private control-plane contract
+POST /v1/goals
+POST /v1/plans
+POST /v1/approvals/:id/decision
+POST /v1/tasks/:id/execute
+GET /v1/evidence/:id
+GET /v1/audit
+GET /v1/analytics/summary
+POST /v1/robotics/commands
+
+Memory contract
+The repository contains a pgvector-oriented memory schema at docs/VECTOR_MEMORY_SCHEMA.sql. Production memory requires a real Postgres/pgvector connection, owner-scoped authorization, retention policy, region policy, and auditable write events. Seed/demo vectors must never be treated as production memory.
+
+Payments
+MPP is the preferred machine-payment protocol; x402 is the compatibility path. Production settlement is disabled until recipient identity, network, budget policy, secret storage, webhook/receipt verification and founder approval policy are independently verified.
+
+Identity
+The original deliverable's OIDC PKCE/JWKS flow is an integration contract, not a claim that a real IdP is configured. Production requires a real issuer, audience, redirect allow-list, JWKS endpoint, nonce/state validation, secure server session storage and secret-manager-backed configuration.
+
+Launcher
+Launch tokens must be short-lived, RS256 signed, key-id addressed and issued only after authenticated session and policy/compliance checks. Private signing keys belong in a cloud secret manager. No placeholder key, example issuer or example launch URL may be promoted to production.
+
+Compliance
+Age/KYC/AML/responsible-gambling controls are policy hooks only unless a real regulated use case and provider are configured. The Desk must not imply regulated verification merely because a hook exists. Regional data residency and retention must be enforced by deployment configuration.
+
+Robotics
+The repository's robotics contract must follow PLAN -> SAFETY_CHECK -> ARM -> EXECUTE -> VERIFY -> DISARM. Emergency stop is a hard-stop control, not an AI suggestion. No autonomous physical actuation is considered live without hardware-controller verification, site authorization, heartbeat, localization, timeout and incident logging.
+
+Observability
+Required events include authentication outcomes, approvals, task lifecycle, payments, evidence, deployment changes and robotics safety events. Production alerts must map to the actual monitoring provider and notification channel; documentation alone is not proof of activation.
+
+Cloud deployment
+Cloud Run / API Gateway manifests may be maintained as deployment contracts, but real deployment requires verified project, service identities, images, secrets, domains, IAM and smoke-test evidence. Placeholder gcr.io/REPLACE_PROJECT images and example-idp URLs are never production configuration.
+
+Current integration boundary
+EU AI Operator's Desk = intelligence / evidence / qualification / private-compute planning.
+MindReply / MRdash = approvals / orchestration / deployment / monitoring / audit.
+Supabase/Postgres or Neon = operational memory and state.
+Stripe = commercial checkout/subscription layer.
+MPP/x402 = controlled machine-payment layer.
+Robotics = bounded execution adapter.
+Multi-region = EU / UK / US policy and residency boundary.
+
+Founder cockpit
+LIVE SYSTEMS | APPROVAL QUEUE | ACTIVE RUNS | BLOCKERS | SPEND | EVIDENCE | REGIONS | ROBOTICS
+Microcopy: Clear. / Needs you. / Moving. / Blocked. / Proven. / Contained.
+
+Definition of done
+A capability is only VERIFIED when code, configuration, authentication/authorization, observability, rollback, external dependency configuration and runtime verification evidence all exist. A scaffold, README, YAML manifest or stub endpoint alone is not live status.
+
+Security rule
+No credentials, private keys, tokens, webhook secrets or personal authentication material may be committed to this repository.
+
+Canonical supporting files
+- docs/ENTERPRISE_AI_OS.md
+- docs/API_CONTRACTS.md
+- docs/VECTOR_MEMORY_SCHEMA.sql
+- docs/ROBOTICS_SAFETY.md
+- docs/REGION_TEMPLATE.md
+- docs/FOUNDER_COCKPIT.md
+- .well-known/ai-os.json
+
+Handoff
+The separate ai-os repository described in the original scaffold is not created or claimed here because the connected GitHub interface does not expose repository-creation administration. This repository therefore carries the canonical Enterprise AI OS contract until a dedicated private ai-os repository is explicitly created and authorized for migration.
