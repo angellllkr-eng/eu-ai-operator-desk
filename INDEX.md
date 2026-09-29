@@ -57,7 +57,7 @@ Material claims should record source provenance, publication/check dates, and on
 
 - `VERIFIED`
 - `DIRECTIONAL`
-- `UNVERIFIED`
+- `pending_evidence`
 - `BLOCKED`
 
 ## Repository
