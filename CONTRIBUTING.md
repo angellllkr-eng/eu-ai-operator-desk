@@ -24,7 +24,7 @@ We welcome contributions from researchers, operators, hardware engineers, and te
 
 ### Market Intelligence
 
-Add sourced regional analysis, regulatory intelligence, use cases and opportunity qualification. Label evidence `VERIFIED`, `CORROBORATED`, `DIRECTIONAL`, `UNVERIFIED` or `BLOCKED`.
+Add sourced regional analysis, regulatory intelligence, use cases and opportunity qualification. Label evidence `VERIFIED`, `CORROBORATED`, `DIRECTIONAL`, `pending_evidence` or `BLOCKED`.
 
 ### Hardware Guidance
 
