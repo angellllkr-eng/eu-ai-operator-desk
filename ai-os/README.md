@@ -2,7 +2,7 @@
 
 Founder-grade, provider-neutral control plane for governed AI orchestration, secure launcher integration, memory, scheduling, analytics, MCP tools, compliance, and robotics safety.
 
-Status: READY FOR CONTRACTOR BUILD; production remains UNVERIFIED until real IdP, cloud, secrets, legal/compliance and E2E evidence exist.
+Status: READY FOR CONTRACTOR BUILD; production remains pending_evidence until real IdP, cloud, secrets, legal/compliance and E2E evidence exist.
 
 ## Operating model
 Reality -> Authority -> Planning -> Execution -> Evidence -> Operation.
