@@ -36,7 +36,7 @@ A command may arm only when all are true:
 
 1. DISARM motion.
 2. Preserve telemetry and command evidence.
-3. Mark execution `BLOCKED`.
+3. Mark execution `PENDING_ACTION`.
 4. Require operator review.
 5. Do not automatically resume physical motion.
 6. Create an incident record.
